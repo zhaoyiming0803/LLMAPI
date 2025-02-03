@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
 
 from dto.chat_dto import RequestChatDto
 
@@ -17,11 +17,11 @@ tokenizer = AutoTokenizer.from_pretrained(model_name)
 router = APIRouter()
 
 @router.post('/chat')
-async def chat (messages: list[RequestChatDto]) -> str:
+async def chat (request: Request, body: RequestChatDto) -> str:
   text = tokenizer.apply_chat_template(
-    messages,
-    tokenize=False,
-    add_generation_prompt=True
+    messages = body.messages,
+    tokenize = False,
+    add_generation_prompt = True
   )
   
   model_inputs = tokenizer([text], return_tensors = "pt").to(model.device)
