@@ -12,6 +12,12 @@ Deploy large language model eg: deepseek / Qwen independently and provide http a
 pip install -r requirements.txt
 ```
 
+```shell
+yum install nodejs
+
+npm install -g pm2
+```
+
 - Server: 
 ``` shell
 pm2 start ecosystem.config.js
