@@ -4,6 +4,7 @@ from dto.chat_dto import RequestChatDto
 
 from modelscope import AutoModelForCausalLM, AutoTokenizer
 
+# https://www.modelscope.cn/models
 model_name = "Qwen/Qwen2.5-0.5B-Instruct"
 
 model = AutoModelForCausalLM.from_pretrained(
@@ -18,8 +19,10 @@ router = APIRouter()
 
 @router.post('/chat')
 async def chat (request: Request, body: RequestChatDto) -> str:
+  messages = body.messages
+
   text = tokenizer.apply_chat_template(
-    messages = body.messages,
+    messages,
     tokenize = False,
     add_generation_prompt = True
   )

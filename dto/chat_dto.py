@@ -1,13 +1,9 @@
 from pydantic import BaseModel
 
-from enum import Enum
- 
-class ChatUserType(Enum):
-  role_user = 'user'
-  role_system = 'system'
+from typing import Literal
   
 class ChatMessage(BaseModel):
-  role: ChatUserType
+  role: Literal['system', 'user']
   content: str
 
 class RequestChatDto(BaseModel):
